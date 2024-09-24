@@ -1,0 +1,173 @@
+/* .con1{
+  color: black;
+  background-color: red;
+  margin: 20px;
+  padding:20px;
+}
+.con3{
+  
+}
+.con2{
+  margin-top: 30px;
+} */
+body {
+  font-family:'Times New Roman', Times, serif !important;
+
+  background:linear-gradient(to right,lightgreen,white) !important;
+}
+.cardcolor{
+  background-color: #f8f9fa; /* Default background color */
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  color:black!important;
+  transition: background-color 0.3s ease, transform 0.3s ease; 
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 18px;
+  font-weight:550;
+  position: sticky!important;
+  top: 2px!important;
+  z-index: 100!important;
+}
+.cardcolor:hover{
+  background-color:palegreen; /* Background color on hover */
+  transform: scale(1.02); /* Slightly scale the card */
+}
+
+  .but1{
+    height: 6vh;
+    width:20vh;
+    margin-top: 1vh;
+  }
+  .but1:hover{
+    background-color: blue;
+    color:red;
+  }
+.centre_column{
+  background-color: green;
+}
+/* @media only screen and (max-width:575.78px) {
+
+  
+  .centre_column{
+    background-color: aquamarine;
+  }
+
+
+} */
+ .quest{
+  height: 20vh;
+  width:50px;
+  border:solid;
+  border-radius: 10;
+ }
+ .quest::placeholder {
+  padding-top: 0; /* Ensure the placeholder has no additional padding */
+  transform: translateY(-50%); /* Move the placeholder up slightly */
+}
+
+.barct {
+  margin:10px 0;
+  padding: 5px;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+
+}
+
+.bar {
+  position: relative;
+  height: 30px;
+  background-color: #e0e0e0;
+  border-radius: 10px!important;
+  transition: 0.5 !important;
+}
+
+.filledbar {
+  height: 100%;
+  background-color: #4caf50;
+  transition: width 1s ease!important; 
+}
+
+.percentage-text {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #fff;
+  font-weight: bold;
+}
+.cardstyle {
+  margin-bottom: 16px;
+  padding: 16px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  border:solid!important;
+  border-radius: 10px !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; 
+  background: linear-gradient(to right, grey, red);
+  width:100%;
+  
+}
+
+
+.cardstyle:hover {
+  transform: translateY(-5px); 
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
+}
+       
+.Trendpollstyle{
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 25px;
+  font-weight: 700;
+  color:red;
+}
+
+.Commentcard{
+  width:280px;
+  height:2%;
+}
+.votein{
+  color:white!important;
+  background-color: grey!important;
+  border: none;
+  padding: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
+.votein:hover{
+  background:linear-gradient(green,white);
+  color:black!important;  
+}
+
+.voteless{
+  color:white!important;
+  background-color: gray!important;
+  border: none;
+  padding: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
+.voteless:hover{
+  background:linear-gradient(red,white);
+  color:black!important; 
+}
+.imageupload{
+   height:50px;
+   width:50px;
+   border-radius: 50px;
+}
+
+
+
+@media (min-width: 320px) {
+  .navinxs {
+     
+   display: none;
+  }
+}
+
+
+
+
