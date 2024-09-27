@@ -339,6 +339,9 @@ const Addpoll = () => {
           createdBy: parsedUserData._id
         }));
       }
+      else{
+        navi2('/');
+      }
     };
     getUser();
   }, []);

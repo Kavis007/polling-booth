@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api";
 import Swal from "sweetalert2";
@@ -12,6 +12,14 @@ const VerifyOtpPassword = () => {
   const [confirmpassword,setConfirmpassword] =useState();
  const p= sessionStorage.getItem('userph')
   const navigate1 = useNavigate();
+ const navtohom=useNavigate();
+  useEffect(()=>{
+     if(!p)
+     {
+      navtohom('/');
+     }
+      
+  },[p,navtohom])
 
   const handleChangeconfirm =(e)=>{
     setConfirmpassword(e.target.value)

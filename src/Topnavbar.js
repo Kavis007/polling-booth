@@ -162,13 +162,6 @@ const handleNavigation = () => {
             <hr />
             <Nav.Link
               style={{ color: "black", fontSize: "20px", fontWeight: "700" }}
-              href="#link"
-            >
-              VOTED POLLS
-            </Nav.Link>
-            <hr />
-            <Nav.Link
-              style={{ color: "black", fontSize: "20px", fontWeight: "700" }}
               href="/Profilepage"
             >
               USER DETAILS
@@ -223,13 +216,6 @@ const handleNavigation = () => {
                 href="/Addpoll"
               >
                 ADD POLL
-              </Nav.Link>
-              <hr />
-              <Nav.Link
-                style={{ color: "black", fontSize: "20px", fontWeight: "700" }}
-                href="#link"
-              >
-                VOTED POLLS
               </Nav.Link>
               <hr />
               <Nav.Link

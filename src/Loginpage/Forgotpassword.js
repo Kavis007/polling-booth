@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -9,17 +9,25 @@ import api from "../api";
 import { useNavigate } from "react-router-dom";
 
 const ForgotPassword = () => {
+  const a = sessionStorage.getItem("user");
   const [pass, setPass] = useState({
     number: "",
     appName: "POLL APP",
   });
-  const a = sessionStorage.getItem("user");
+ 
   console.log(a)
   const [sended, setSended] = useState(false);
   const [otpverify, setOtpverify] = useState({
     otp: null,
   });
   const navigate = useNavigate();
+  
+  useEffect(() => {
+    if (!a) {
+      navigate("/");
+    }
+  }, [a, navigate]);
+
   const handleChange = (e) => {
     setPass((prev) => ({
       ...prev,
@@ -48,6 +56,7 @@ const ForgotPassword = () => {
           text: "Please enter a valid mobile number!",
           icon: "error",
         });
+
       } else if (response.status === 200) {
         setSended(true);
         Swal.fire({

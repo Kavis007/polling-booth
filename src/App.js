@@ -33,7 +33,7 @@ const Project = () => {
           <Routes>
             <Route path="/" element={<LoginPage />} />
             <Route path="/HomePage" element={<HomePage />} />
-            <Route path='//VerifyOtpPassword' element={<VerifyOtpPassword/>}></Route>
+            <Route path='/VerifyOtpPassword' element={<VerifyOtpPassword/>}></Route>
             <Route path='/ForgotPassword' element={<ForgotPassword/>}></Route>
             <Route path="/Signup" element={<Signup />} />
             <Route path="/Addpoll" element={<Addpoll />} />
