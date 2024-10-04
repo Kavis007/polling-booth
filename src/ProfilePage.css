@@ -1,0 +1,45 @@
+.user_detail_container{
+    padding: 5vh;
+    }
+    /* .user_detail_container_in{
+        padding: 2vh;
+        border: 1px solid red;
+        box-shadow: 2px 2px 3px red;
+    
+    } */
+     .user_card{
+        /* box-shadow: 1px 1px 1px  rgba(0, 0, 0, 0.308); */
+        box-shadow: 1px 1px 1px black;
+    
+     }
+    .detail{
+        border-radius: 5px;
+        padding: 1vh;
+        font-size: medium;
+        box-shadow: 2px 2px 3px rgb(102, 80, 80);
+    }
+    .detail:hover{
+        border: 1px solid green;
+        font-size: medium;
+        box-shadow: inset 2px 2px 3px rgba(33, 109, 18, 0.479);
+    } 
+      .polling-component {
+        height: auto; 
+      
+        border: 1px solid #ccc;
+        padding: 1rem;
+      }
+    @media only screen and (max-width:378px){
+        .user_detail_container{
+            padding: 3vh;
+            }
+            .user_detail_container_in{
+               padding-bottom: 2vh;
+            }
+            .detail{           
+                font-size:small;         
+            }
+            .detail:hover{           
+                font-size:small;         
+            }
+    }

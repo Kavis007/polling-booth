@@ -49,7 +49,7 @@ const Createdate = ({createdtime}) => {
   }, [createdtime]);
   return (
     <div>
-      <b>{result}</b>
+      <span className='dates'>{result}</span>
     </div>
   )
 }

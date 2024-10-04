@@ -1,5 +1,5 @@
 // import React, { useEffect, useState } from 'react'
-// import { Button, Col, FormControl, FormLabel, Row } from 'react-bootstrap'
+// import { Button, Col, FormControl, span, Row } from 'react-bootstrap'
 // import { BsTrash } from 'react-icons/bs';
 // import axios from 'axios';
 // import Swal from 'sweetalert2';
@@ -66,7 +66,7 @@
 //     const fetchPollData = async () => {
 //       if (editid && currentUser) {
 //         try {
-//           const response = await axios.post(`http://localhost:5000/polls/getone`, {
+//           const response = await axios.post(`${apiUrl}/polls/getone`, {
 //             poll_id: editid,
 //             user_id: currentUser
 //           });
@@ -126,7 +126,7 @@
 
 //     const fetchCategories = async () => {
 //       try {
-//         const response = await axios.get('http://localhost:5000/category/getall');
+//         const response = await axios.get('${apiUrl}/category/getall');
 //         const fetchedCategories = response.data;
 //         setCategories(fetchedCategories);
 
@@ -153,7 +153,7 @@
 //     try {
 //       if (upd) {
 //         console.log("id", upd._id)
-//         const response = await axios.post('http://localhost:5000/polls/update', {
+//         const response = await axios.post('${apiUrl}/polls/update', {
 //           ...forms,
 //           poll_id: upd._id,
 
@@ -180,7 +180,7 @@
 //       }
 //       else {
 //         try {
-//           const resp = await axios.post('http://localhost:5000/polls/create', forms);
+//           const resp = await axios.post('${apiUrl}/polls/create', forms);
 //           if (resp.status === 201) {
 //             Swal.fire({
 //               title: "Good job!",
@@ -305,9 +305,10 @@
 
 
 import React, { useEffect, useState } from 'react';
-import { Button, FormControl, FormLabel } from 'react-bootstrap';
+import { Button, Container, FormControl, FormLabel } from 'react-bootstrap';
 import { BsTrash } from 'react-icons/bs';
 import axios from 'axios';
+import apiUrl from "./api";
 import Swal from 'sweetalert2';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
@@ -350,7 +351,7 @@ const Addpoll = () => {
     const fetchPollData = async () => {
       if (editid && currentUser) {
         try {
-          const response = await axios.post('http://localhost:5000/polls/getone', {
+          const response = await axios.post(`${apiUrl}/polls/getone`, {
             poll_id: editid,
             user_id: currentUser
           });
@@ -378,7 +379,7 @@ const Addpoll = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/category/getall');
+        const response = await axios.get(`${apiUrl}/category/getall`);
         const fetchedCategories = response.data;
         setCategories(fetchedCategories);
 
@@ -431,7 +432,7 @@ const Addpoll = () => {
     e.preventDefault();
     try {
       if (updsub) {
-        const response = await axios.post('http://localhost:5000/polls/update', {
+        const response = await axios.post(`${apiUrl}/polls/update`, {
           ...forms,
           poll_id: editid
         });
@@ -450,7 +451,7 @@ const Addpoll = () => {
           });
         }
       } else {
-        const resp = await axios.post('http://localhost:5000/polls/create', forms);
+        const resp = await axios.post(`${apiUrl}/polls/create`, forms);
         if (resp.status === 201) {
           Swal.fire({
             title: "Good job!",
@@ -477,11 +478,12 @@ const Addpoll = () => {
   };
 
   return (
-    <div>
+    <Container className='form-comp' style={{minHeight:"100vh"}} >  
       <form onSubmit={handleSubmit}>
         <div className='mb-3'>
-          <FormLabel>Title</FormLabel>
+          <span style={{color:'white'}}>Title</span>
           <FormControl
+            className='inputinaddpoll'
             type='text'
             name="title"
             value={forms.title}
@@ -491,8 +493,9 @@ const Addpoll = () => {
           />
         </div>
         <div className='mb-3'>
-          <FormLabel>Question</FormLabel>
+          <span style={{color:'white'}}>Question</span>
           <FormControl
+          className='inputinaddpoll'
             type='text'
             name='question'
             value={forms.question}
@@ -504,9 +507,10 @@ const Addpoll = () => {
         {Array.isArray(forms.options) && forms.options.length > 0 ? (
           forms.options.map((option, index) => (
             <div key={index} className='mb-3'>
-              <FormLabel>{`Option ${index + 1}`}</FormLabel>
+              <span style={{color:'white'}}>{`Option ${index + 1}`}</span>
               <FormControl
                 name="options"
+                className='inputinaddpoll'
                 value={option.option}
                 type='text'
                 onChange={(e) => handleInputChange(index, e.target.value)}
@@ -523,11 +527,12 @@ const Addpoll = () => {
           ))
         ) : (<p>No options</p>)}
 
-        <Button type="button" onClick={Addinput}>Add Option</Button>
+        <button className='category-button' type="button" onClick={Addinput}>Add Option</button>
         <div className='mb-2'>
-          <FormLabel>Duration</FormLabel>
+          <span style={{color:'white'}} > Duration</span>
           <FormControl
-            type='number'
+          className='inputinaddpoll'
+            type='text'
             name='duration'
             value={forms.duration}
             onChange={handlechange}
@@ -535,8 +540,9 @@ const Addpoll = () => {
           />
         </div>
         <div className='mb-3'>
-          <FormLabel>Category</FormLabel>
+          <span style={{color:'white'}}>Category</span>
           <FormControl
+          className='inputinaddpoll'
             as="select"
             name="category"
             value={forms.category}
@@ -546,16 +552,16 @@ const Addpoll = () => {
             <option value="">Select a category</option>
             {categories.map(category => (
               <option key={category._id} value={category._id}>
-                {category.category_name}
+               <span className='inputinaddpoll'>{category.category_name}</span> 
               </option>
             ))}
           </FormControl>
         </div>
-        <Button type='submit'>
+        <button className='category-button' type='submit'>
           {updsub ? "Update" : "Create"}
-        </Button>
+        </button>
       </form>
-    </div>
+    </Container>
   );
 };
 

@@ -36,10 +36,13 @@ const ExpiryAt = ({ expiryTime }) => {
       const intervalId = setInterval(TimeRemain, 1000); // Update every second
       return () => clearInterval(intervalId); // Clean up on unmount or when expiryTime changes
     }
+    else{
+      setResult("The poll was ended");
+    }
   }, [expiryTime]);
   return (
     <div>
-      <b>{result}</b>
+      <span className='dates'>{result}</span>
     </div>
   );
 };

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api";
 import Swal from "sweetalert2";
+import '../Loginpage/Login.css'
 import { Card, Col, Container, FormControl, Row } from "react-bootstrap";
 
 
@@ -65,12 +66,12 @@ const VerifyOtpPassword = () => {
         <Row style={{ height: "60vh" }}>
           <Col lg={3}></Col>
           <Col lg={6}>
-            <Card className="Loginpageeee">
+            <Card className="cardcolor">
               <label>
-                <b> Password:</b>
+                <span style={{color:'#e5e5e5'}}> Password:</span>
               </label>
               <FormControl
-                className="mobinputpass"
+                className="inputpassword"
                 type="number"
                 required="10"
                 value={password}
@@ -79,9 +80,10 @@ const VerifyOtpPassword = () => {
               />
               <br />
               <label>
-                <b>Confirm Password:</b>
+                <span style={{color:'#e5e5e5'}}>Confirm Password:</span>
               </label>
               <FormControl
+              className="inputpassword"
                 type="number"
                 required="10"
                 name="confirmpassword"
@@ -91,7 +93,7 @@ const VerifyOtpPassword = () => {
               <br />
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <button
-                  style={{ background: "grey", color: "white" }}
+                  className="login-button"
                   onClick={handleSubmit}
                 >
                   Submit

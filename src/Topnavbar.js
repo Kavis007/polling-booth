@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Col, FormControl, Offcanvas, Row, Container, Nav, Navbar, Card, Button, CardBody } from "react-bootstrap";
 import { Navigate, useNavigate } from "react-router-dom";
+import apiUrl from "./api";
 const Topnavbar = () => {
   const [data, setData] = useState("");
   const [currentUser, setCurrentUser] = useState("");
@@ -9,22 +10,25 @@ const Topnavbar = () => {
   const [detailtop, setDetailtop] = useState([]);
   const [categoryhandle, setCategoryhandle] = useState([])
   const [showcategory, setShowcategory] = useState([]);
-  const[showlogout,setShowlogout]=useState([]);
+  const [showlogout, setShowlogout] = useState([]);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const navtoshow = useNavigate();
   const navtoclear = useNavigate();
-  const[searchinp,setSearchinp]=useState();
-  const[getonepoll,setGetonepoll]=useState([]);
-  const navtoone=useNavigate();
- 
+  const [searchinp, setSearchinp] = useState();
+  const [getonepoll, setGetonepoll] = useState([]);
+  const navtoone = useNavigate();
+
   useEffect(() => {
     const getUser = () => {
-      const userData = sessionStorage.getItem("UserData");
-      sessionStorage.setItem('original',window.location.href);
-      if (userData) {
-        const parsedUserData = JSON.parse(userData);
+      const userinpf = sessionStorage.getItem("UserData");
+      console.log(userinpf);
+      // console.log(userData);
+      // console.log(userData);
+      // sessionStorage.setItem('original', window.location.href);
+      if (userinpf) {
+        const parsedUserData = JSON.parse(userinpf);
         setCurrentUser(parsedUserData._id);
         setData(parsedUserData.user_name);
       }
@@ -34,7 +38,7 @@ const Topnavbar = () => {
 
   useEffect(() => {
     const fetchtop = async () => {
-      const store = await axios.get('http://localhost:5000/polls/top3');
+      const store = await axios.get(`${apiUrl}/polls/top3`);
       if (store.data) {
         setDetailtop(store.data);
       }
@@ -45,7 +49,7 @@ const Topnavbar = () => {
   useEffect(() => {
     const fetchdata = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/category/getall');
+        const response = await axios.get(`${apiUrl}/category/getall`);
         if (response.data) {
           setCategoryhandle(response.data);
         }
@@ -59,28 +63,28 @@ const Topnavbar = () => {
 
 
 
- const showonepoll=async(id)=>{
-  try{
+  const showonepoll = async (id) => {
+    try {
 
-    console.log("enterincard")
-    const onepoll=await axios.post('http://localhost:5000/polls/getone',{
-            poll_id:id,
-            user_id:currentUser
-    })
-    
-      let xx=onepoll?.data;
-       setGetonepoll(xx);
-       console.log(getonepoll);
-    navtoone('/HomePage',{state:{xx}});
-  }
-  catch(e){
+      console.log("enterincard")
+      const onepoll = await axios.post(`${apiUrl}/polls/getone`, {
+        poll_id: id,
+        user_id: currentUser
+      })
 
+      let xx = onepoll?.data;
+      setGetonepoll(xx);
+      console.log(getonepoll);
+      navtoone('/HomePage', { state: { xx } });
+    }
+    catch (e) {
+
+    }
   }
- }
 
   const Showid = async (id) => {
     try {
-      const categorywise = await axios.post('http://localhost:5000/polls/getbycategory', {
+      const categorywise = await axios.post(`${apiUrl}/polls/getbycategory`, {
         category: id
       })
       let x = categorywise?.data;
@@ -96,87 +100,99 @@ const Topnavbar = () => {
     }
   }
   const handlelogout = () => {
-   
+
     sessionStorage.clear();
     navtoclear('/');
- 
-  };
-//  const handlesearchinp=(e)=>{
-//     setSearchinp(e.tarsessionStorage.clear();
-//  }
 
-const handleNavigation = () => {
-  ;
-};
-  
+  };
+  //  const handlesearchinp=(e)=>{
+  //     setSearchinp(e.tarsessionStorage.clear();
+  //  }
+
+  const handleNavigation = () => {
+    navtoone('/HomePage')
+  };
+  const handleNavigation1 = () => {
+    navtoone("/Addpoll");
+  }
+  const handleNavigation2 = () => {
+    navtoone('/Profilepage');
+  }
+
   return (
     <>
       {/* Top Navbar (always visible) */}
-      <Navbar className="bg-body-tertiary" style={{ position: 'fixed', top: '0', left: '0', width: "100%" }} expand="lg">
-        <Container fluid>
-          <Navbar.Brand href="#" style={{ margin: "0px", padding: "0px" }}>
-            Polling Booth
-          </Navbar.Brand>
+      <Navbar className="bg-body-tertiary " style={{ position: 'fixed', top: '0', left: '0', width: "100%", zIndex: 20, padding: '0' }} expand="lg">
+        <Container fluid className="navstyle">
+
           <Navbar.Toggle onClick={handleShow} aria-controls="offcanvasNavbar" />
-          <Navbar.Collapse className="d-none d-lg-flex justify-content-end">
-            <FormControl
-              style={{ width: "50%", marginRight: "55px" }}
-              placeholder="Search"
+          <Navbar.Collapse className="d-none d-lg-flex justify-content-between">
+            <Navbar.Brand href="#" style={{ margin: "0px", padding: "0px" }} className="pollingmain">
+              Polling Booth
+            </Navbar.Brand>
+            <FormControl className="searchstyle"
+              style={{ width: "50%" }}
+              placeholder="Search...."
               onChange={(e) => {
                 setSearchinp(e.target.value);  // Update search input value
                 navtoclear('/Homepage', { state: { searchinp: e.target.value } });  // Navigate and pass the search input
               }}
-              
+
               value={searchinp}
             />
             {/* <Button  style={{marginRight:'5%'}}onClick={handleNavigation}>search</Button> */}
-            <h2>Welcome {data ? `${data}` : `Guest`}!!</h2>
-           
-         </Navbar.Collapse>
+            <h2 className="pollingmain">Welcome {data ? `${data}` : `Guest`}!!</h2>
+
+          </Navbar.Collapse>
         </Container>
       </Navbar>
 
       {/* Offcanvas for Mobile View */}
-      <Offcanvas show={show} onHide={handleClose} id="offcanvasNavbar">
+      <Offcanvas show={show} onHide={handleClose} id="offcanvasNavbar" style={{background:'#013a63'}}>
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Menu</Offcanvas.Title>
+          <Offcanvas.Title className="pollingmain">Menu</Offcanvas.Title>
         </Offcanvas.Header>
-        <Offcanvas.Body>
+        <Offcanvas.Body >
           <Nav className="flex-column">
             <Nav.Link
-              style={{ color: "black", fontSize: "20px", fontWeight: "700" }}
-
-              href="/HomePage"
+              style={{ fontSize: "20px",color:'white',paddingLeft:'100px' }}
+              
+              onClick={handleNavigation} // Calls the function when clicked
             >
-
               POLL LIST
             </Nav.Link>
-
-            <hr />
+           <hr style={{color:'white'}}/>
             <Nav.Link
-              style={{ color: "black", fontSize: "20px", fontWeight: "700" }}
-              href="/Addpoll"
+              style={{ fontSize: "20px", color:'white',paddingLeft:'100px'}}
+             
+              onClick={handleNavigation1}
             >
               ADD POLL
             </Nav.Link>
-            <hr />
+            <hr style={{color:'white'}}/>
             <Nav.Link
-              style={{ color: "black", fontSize: "20px", fontWeight: "700" }}
-              href="/Profilepage"
+              style={{ fontSize: "20px", color:'white' ,paddingLeft:'100px'}}
+             
+              onClick={handleNavigation2}
             >
               USER DETAILS
             </Nav.Link>
-            <hr />
-            
+            <hr style={{color:'white'}}/>
+
             <FormControl
-              style={{ width: "100%", marginBottom: "10px" }}
-              placeholder="Search"
-              onChange={(e) => setSearchinp(e.target.value)} 
+              style={{ width: "100%",marginBottom:'10px',borderRadius:'10px' }}
+              placeholder="Search...."
+              onChange={(e) => {
+                setSearchinp(e.target.value);  // Update search input value
+                navtoclear('/Homepage', { state: { searchinp: e.target.value } });  // Navigate and pass the search input
+              }}
+
+              value={searchinp}
             />
-            
-            <h2>Welcome {data ? `${data}` : `Guest`}!!</h2>
+
+            <h2 className="pollingmain">Welcome {data ? `${data}` : `Guest`}!!</h2>
             {detailtop.map((item) => (
-              <Card key={item._id} className="mb-3" style={{ width: '100%' }} onClick={()=>showonepoll(item._id)}>
+              <Card key={item._id} className="mb-3 cardcolor" style={{ width: '100%' }} onClick={() => showonepoll(item._id)}>
                 <Card.Body>
                   <Card.Title>{item.question}</Card.Title>
                   <Card.Text>
@@ -188,6 +204,17 @@ const handleNavigation = () => {
                 </Card.Body>
               </Card>
             ))}
+            {categoryhandle.map((portion) => (
+              <div key={portion._id}>
+                <Row>
+
+                  <button className='categoryshow' onClick={() => Showid(portion._id)} style={{ height: '50%', marginBottom: '10px' }}>{portion.category_name}</button>
+
+                </Row>
+
+              </div>
+            ))}
+            <button className='logbut' onClick={handlelogout}>Logout</button>
 
           </Nav>
         </Offcanvas.Body>
@@ -202,25 +229,28 @@ const handleNavigation = () => {
         </Row> */}
         <Row>
           {/* Sidebar (only visible on large screens) */}
-          <Col lg={3} className="d-none d-lg-block bg-light p-3" style={{ position: 'fixed', top: '8vh', left: '0', height: '100vh' }}>
-            <Nav className="flex-column">
+          <Col lg={3} className="d-none d-lg-block  p-3 sidenavstyle" style={{ position: 'fixed', top: '8vh', left: '0', height: '100vh', width: '25%' }}>
+            <Nav className="flex-column " style={{ color: "white" }}>
               <Nav.Link
-                style={{ color: "black", fontSize: "20px", fontWeight: "700" }}
-                href="/HomePage"
+                style={{ fontSize: "20px" }}
+                className="btn btn-primary polllistbut"
+                onClick={handleNavigation}
               >
                 POLL LIST
               </Nav.Link>
               <hr />
               <Nav.Link
-                style={{ color: "black", fontSize: "20px", fontWeight: "700" }}
-                href="/Addpoll"
+                style={{ fontSize: "20px" }}
+                className="btn btn-primary  polllistbut"
+                onClick={handleNavigation1}
               >
                 ADD POLL
               </Nav.Link>
               <hr />
               <Nav.Link
-                style={{ color: "black", fontSize: "20px", fontWeight: "700" }}
-                href="/Profilepage"
+                style={{ fontSize: "20px" }}
+                className="btn btn-primary polllistbut"
+                onClick={handleNavigation2}
               >
                 USER DETAILS
               </Nav.Link>
@@ -229,13 +259,13 @@ const handleNavigation = () => {
                 <div key={portion._id}>
                   <Row>
 
-                    <Button onClick={() => Showid(portion._id)} style={{ width: '50%', height: '50%', marginBottom: '5px' }}>{portion.category_name}</Button>
+                    <button className='categoryshow' onClick={() => Showid(portion._id)} style={{ height: '50%', marginBottom: '10px' }}>{portion.category_name}</button>
 
                   </Row>
 
                 </div>
               ))}
-              <Button style={{color:'black',backgroundColor:'red',fontSize:'20px',fontWeight:'700',width:'50%'}} onClick={handlelogout}>Logout</Button>
+              <button className='logbut' onClick={handlelogout}>Logout</button>
 
 
             </Nav>

@@ -7,6 +7,7 @@ import axios from "axios";
 import { Card, FormControl, Button } from "react-bootstrap";
 import api from "../api";
 import { useNavigate } from "react-router-dom";
+import '../Loginpage/Login.css';
 
 const ForgotPassword = () => {
   const a = sessionStorage.getItem("user");
@@ -14,14 +15,14 @@ const ForgotPassword = () => {
     number: "",
     appName: "POLL APP",
   });
- 
+
   console.log(a)
   const [sended, setSended] = useState(false);
   const [otpverify, setOtpverify] = useState({
     otp: null,
   });
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     if (!a) {
       navigate("/");
@@ -64,7 +65,7 @@ const ForgotPassword = () => {
           text: "OTP has been sent!",
           icon: "success",
         });
-        sessionStorage.setItem('userph',pass.number)
+        sessionStorage.setItem('userph', pass.number)
       }
     } catch (error) {
       Swal.fire({
@@ -81,8 +82,8 @@ const ForgotPassword = () => {
       const response = await axios.post(
         `${api}/mobileauth/verify-otp-sms`,
         {
-          number:pass.number,
-          otp:otpverify.otp
+          number: pass.number,
+          otp: otpverify.otp
         }
       );
 
@@ -115,42 +116,46 @@ const ForgotPassword = () => {
       <Row style={{ height: "60vh" }}>
         <Col lg={3}></Col>
         <Col lg={6}>
-          <Card className="Loginpageeee">
+          <Card className="cardcolor">
             <Card.Body>
               <div>
                 <label>
-                  <b>Mobile no:</b>
+                  <span style={{ color: "white" }}>Mobile no:</span>
                 </label>
               </div>
               <br />
               <FormControl
-                className="mobinputpass"
+                className="inputpassword"
                 type="text"
                 required
                 name="number"
                 value={pass.number}
                 onChange={handleChange}
+                minLength={10}
+                maxLength={10}
               />
               <br />
               <div style={{ display: "flex", justifyContent: "center" }}>
                 {!sended && (
-                  <Button variant="secondary" onClick={handleSubmit}>
+                  <button className="login-button" onClick={handleSubmit}>
                     Enter OTP
-                  </Button>
+                  </button>
                 )}
                 {sended && (
                   <>
                     <FormControl
-                      className="mobinputpass"
+                      className="inputpassword"
                       type="text"
                       required
                       name="otp"
                       value={otpverify.otp}
                       onChange={handleOtpChange}
+                      minLength={6}
+                      maxLength={6}
                     />
-                    <Button variant="secondary" onClick={handleVerify}>
+                    <button className="login-button" onClick={handleVerify}>
                       Verify OTP
-                    </Button>
+                    </button>
                   </>
                 )}
               </div>

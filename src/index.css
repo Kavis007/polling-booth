@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
 /* .con1{
   color: black;
   background-color: red;
@@ -10,29 +11,37 @@
 .con2{
   margin-top: 30px;
 } */
-body {
-  font-family:'Times New Roman', Times, serif !important;
 
-  background:linear-gradient(to right,lightgreen,white) !important;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family:"Fredoka", sans-serif !important;
+
+  background:#013a63 !important;
 }
 .cardcolor{
-  background-color: #f8f9fa; /* Default background color */
+  background:linear-gradient(135deg, #01497c, #026aa7, #49a1d4)!important; /* Default background color */
   padding: 15px;
   border-radius: 8px;
-  margin-bottom: 10px;
-  color:black!important;
+  margin: 20px;
+  margin-bottom: 25px;
+  color:white !important;
   transition: background-color 0.3s ease, transform 0.3s ease; 
-  font-family: 'Times New Roman', Times, serif;
+  font-family:"Fredoka", sans-serif !important;
   font-size: 18px;
-  font-weight:550;
-  position: sticky!important;
-  top: 2px!important;
-  z-index: 100!important;
+  /* font-weight:400; */
+  /* position: sticky!important; */
+  /* top: 2px!important; */
+  /* z-index: 100!important;  */
 }
 .cardcolor:hover{
-  background-color:palegreen; /* Background color on hover */
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);  /* Background color on hover */
   transform: scale(1.02); /* Slightly scale the card */
 }
+
 
   .but1{
     height: 6vh;
@@ -69,7 +78,8 @@ body {
 .barct {
   margin:10px 0;
   padding: 5px;
-  background-color: #f1f1f1;
+  background-color: #013a63;
+  border:none!important;
   border-radius: 5px;
   border: 1px solid #ddd;
 
@@ -78,14 +88,14 @@ body {
 .bar {
   position: relative;
   height: 30px;
-  background-color: #e0e0e0;
+  background-color: #014f86;
   border-radius: 10px!important;
   transition: 0.5 !important;
 }
 
 .filledbar {
   height: 100%;
-  background-color: #4caf50;
+  background-color:#55a630;
   transition: width 1s ease!important; 
 }
 
@@ -116,10 +126,9 @@ body {
 }
        
 .Trendpollstyle{
-  font-family: 'Times New Roman', Times, serif;
+  font-family:"Fredoka", sans-serif !important;
   font-size: 25px;
-  font-weight: 700;
-  color:red;
+   color: white;
 }
 
 .Commentcard{
@@ -128,35 +137,42 @@ body {
 }
 .votein{
   color:white!important;
-  background-color: grey!important;
+  background-color: #014f86;
   border: none;
   padding: 5px;
   font-size: 18px;
   cursor: pointer;
   transition: background-color 0.3s ease; /* Smooth transition */
+  border-radius: 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 .votein:hover{
-  background:linear-gradient(green,white);
-  color:black!important;  
+  background: #206fa3;
 }
 
 .voteless{
   color:white!important;
-  background-color: gray!important;
+  background-color: #014f86;
   border: none;
   padding: 5px;
   font-size: 18px;
   cursor: pointer;
   transition: background-color 0.3s ease; /* Smooth transition */
+  border-radius: 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 .voteless:hover{
-  background:linear-gradient(red,white);
-  color:black!important; 
+  background: #206fa3;
 }
 .imageupload{
-   height:50px;
-   width:50px;
-   border-radius: 50px;
+   height:90px;
+   width:90px;
+   border-radius: 0px;
+}
+.imageupload1{
+  width:110px;
+  height: 90px; 
+
 }
 
 
@@ -167,7 +183,155 @@ body {
    display: none;
   }
 }
+@media (max-width: 320px) {
+  .cardcolor {
+     
+   margin-top: 15%!important;
+  }
+}
+.maincommentcard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 
+.polllistbut{
+  color:white !important;
+}
+.polllistbut:hover{
+    background: lightblue!important;
+}
+.pollingmain{
+  color:white !important;
+  font-weight: 0 !important;
+}
 
+*::-webkit-scrollbar {
+  background-color: transparent;
+  width: 8px; /* Equivalent to w-2 in Tailwind */
+}
 
+*::-webkit-scrollbar-thumb {
+  background-color: #8d8b8b; /* Replace with actual secondary-dark color */
+  border-radius: 9999px; /* Equivalent to rounded-full in Tailwind */
+}
+
+.category-button{
+  background-color: #014f86; /* Button background color */
+  color: white; /* Text color */
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px; /* Padding inside the button */
+  border: none; /* No border */
+  border-radius: 30px; /* Rounded border */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Subtle box shadow */ /* Font size */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease; 
+  margin-top: 5px;
+}
+.dates {
+  font-style: italic;
+  font-size: small;
+}
+
+.navstyle{
+  padding: 10px !important;
+  background: #01497c !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  
+}
+
+.searchstyle{
+  background:#013a63!important;
+  border: none !important;
+  color: rgb(224, 202, 202) !important;
+
+}
+.searchstyle::placeholder{
+  color: rgb(224, 202, 202) !important;
+}
+
+.inputinaddpoll{
+  background:#013a63!important;
+  border:white!important;
+  color: rgb(224, 202, 202) !important;
+}
+.inputinaddpoll::placeholder{
+  color: rgb(180, 176, 176)!important;
+}
+.sidenavstyle{
+  background: #01497c!important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+.cardintrend{
+  color:white!important;
+  background: linear-gradient(135deg, #012a4a, #045074, #067a9f);
+  font-weight: 0!important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  border-radius: 30px !important;
+}
+
+.categoryshow{
+background: #012a4a;
+color: rgb(248, 233, 233);
+padding-top: 10px;
+padding-bottom: 10px;
+padding-left: 10px;
+padding-right: 10px; /* Padding inside the button */
+border: none; /* No border */
+border-radius: 30px; /* Rounded border */
+box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); 
+cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease; 
+}
+.categoryshow:hover{
+  
+  background: #013a63 !important;
+}
+.logbut{
+  background: #a4133c;
+  color: rgb(248, 233, 233);
+padding-top: 10px;
+padding-bottom: 10px;
+padding-left: 10px;
+padding-right: 10px; /* Padding inside the button */
+border: none; /* No border */
+border-radius: 30px; /* Rounded border */
+box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); 
+cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease; 
+}
+.logbut:hover{
+  background: #c9184a;
+}
+
+.form-comp{
+  background:linear-gradient(135deg, #01497c, #026aa7, #49a1d4)!important; /* Default background color */
+  margin: 20px !important;
+  margin-top: 50px !important;
+}
+
+.inputforsign {
+  background: #013a63 !important;
+  border: none !important;
+  color: rgb(224, 202, 202) !important;
+  width: 85% !important;
+}
+
+.inputforsign:hover {
+  /* background-color: #AEAEAE!important; */
+  /* background-color: lightgray !important; */
+  transition: 0.5s;
+}
+.inputforsign::placeholder{
+  color: rgb(224, 202, 202) !important;
+}
+.Commentcard{
+  background-color: transparent!important;
+  border: none !important;
+}
+.paracont{
+  color: white !important;;
+}

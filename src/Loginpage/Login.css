@@ -1,0 +1,197 @@
+.bodyyy {
+  background-image: transparent !important;
+  height: auto !important;
+  width: 100% !important;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+/* .LoginBody{
+        background: black!important;
+      } */
+/* .Loginpageeee {
+    padding-top: 10%;
+    width: 100% !important;
+    padding-bottom: 10%;
+    background: transparent !important;
+    background-color: black !important;
+  
+    color: white !important;
+    backdrop-filter: blur(10px);
+    border-radius: 40px !important;
+   
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    animation: flipIn 0.8s ease-out;
+    transform-origin: center;
+  } */
+
+.cardcolor {
+  background: linear-gradient(135deg, #01497c, #026aa7, #49a1d4) !important;
+  /* Default background color */
+  padding: 15px;
+  border-radius: 8px;
+  margin: 20px;
+  margin-bottom: 25px;
+  color: white !important;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  font-family: "Fredoka", sans-serif !important;
+  font-size: 18px;
+
+}
+
+.cardcolor:hover {
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+  /* Background color on hover */
+  transform: scale(1.02);
+  /* Slightly scale the card */
+}
+
+
+@media (max-width: 320px) {
+  .signin-button {
+    padding: 5px!important;
+    
+  }
+}
+
+
+.login-button {
+  background-color: #014f86;
+  color: white;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: none;
+   border-radius: 30px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  margin-top: 5px;
+  width:50%;
+ 
+}
+
+.login-button:hover {
+  background: #013a63 !important;
+}
+.signin-button{
+  background-color: #014f86;
+ color: white;
+ padding-top: 5px!important;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: none;
+  border-radius: 20px;
+   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+   cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  margin-top: 5px;
+  width:100%;
+}
+.signin-button:hover{
+  background: #013a63 !important;
+}
+
+/* .loginbutton {
+    width: auto;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0%;
+    margin-left: 20vw;
+    margin-right: 20vw;
+  } */
+.pollingbooth {
+  border: none;
+  background: transparent;
+}
+
+.pollingbooth:hover {
+  height: 4vh;
+  transition: 0.6s ease;
+  text-shadow: 5px 5px 5px n;
+}
+
+.forgotpassword {
+  border: none;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  color: white;
+}
+
+.forgotpassword:hover {
+  color: lightgrey;
+  transition: 0.8s;
+  transform: rotate();
+}
+
+.submit {
+  background-color: #007bff;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.submit:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.submit:active {
+  background-color: #004085;
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes fadeInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+label {
+  animation: fadeInLeft 0.8s ease-out;
+  padding-right: 40%;
+  font-weight: 500;
+  color: black;
+}
+
+.inputpassword {
+  background: #013a63 !important;
+  border: none !important;
+  color: rgb(224, 202, 202) !important;
+  width: 100% !important;
+}
+
+.inputpassword:hover {
+  /* background-color: #AEAEAE!important; */
+  /* background-color: lightgray !important; */
+  transition: 0.5s;
+}
+.inputpassword::placeholder{
+  color: rgb(224, 202, 202) !important;
+}
+.gpic{
+  height: 35px;
+  width: 35px;
+  cursor: pointer;
+}

@@ -1,172 +1,187 @@
+
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   Button,
   Card,
   Col,
   Container,
-  Form,
   FormControl,
   Row,
 } from "react-bootstrap";
 import Swal from "sweetalert2";
-import api from "./api";
+import apiUrl from "./api";
 import { useNavigate } from "react-router-dom";
-import './Bodystyle.css';
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import "./Loginpage/Login.css";
+import pollimage from "../src/pollinglogo.png";
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { auth , provider } from './firebaseconfig';
+import google from '../src/googlelogo.png';
 
 const LoginPage = () => {
-
   const navi = useNavigate();
-  const navi2 = useNavigate();
-  const [validpas, setValidpas] = useState();
-  const [validph, setValidph] = useState();
-  const [addof, setAddof] = useState(false);
-  const [details, setDetails] = useState({
-    phone_number: "",
-    password: "",
-  });
-  let passwordcheck = /^[a-zA-z0-9]{6}$/;
-  let phonenumber_check = /^\d{10}$/;
-  const handleChange = (e) => {
-    setDetails((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    let erroris = false;
-    if (!details.phone_number) {
-      setValidph("phonenumber is required")
-      erroris = true;
-    }
-    else if (!phonenumber_check.test(details.phone_number)) {
-      setValidph("Invalid phonenumber");
-      erroris = true;
-    }
-    else {
-      setValidph('');
-    }
-    if (!details.password) {
-      setValidpas("password is required")
-      erroris = true;
-    }
-    else if (!passwordcheck.test(details.password)) {
-      setValidpas("invalid password");
-      erroris = true;
-    }
-    else {
-      setValidpas("")
-    }
-    if (!erroris) {
-      setAddof(true)
-    }
-    sessionStorage.setItem("user", details.phone_number)
-    try {
-      const response = await axios.post(
-        `${api}/log/loginuser`,
-        details
-      );
-
-      if (response.status === 200) {
-        const SaveUser = response.data.user;
-        // console.log("SaveUser",SaveUser)
-        sessionStorage.setItem("UserData", JSON.stringify(SaveUser))
-        const sessionuser=sessionStorage.getItem('UserData');
-        if (sessionuser) {
+  const formik = useFormik({
+    initialValues: {
+      phone_number: "",
+      password: "",
+    },
+    validationSchema: Yup.object({
+      phone_number: Yup.string()
+        .required("Required field")
+        .matches(/^\d{10}$/, "Invalid phone number"),
+      password: Yup.string()
+        .required("Required field")
+        .min(6, "Password must be at least 6 characters long"),
+    }),
+    onSubmit: async (values) => {
+      sessionStorage.setItem("user", values.phone_number);
+      try {
+        const response = await axios.post(`${apiUrl}/log/loginuser`, values);
+        if (response.status === 200) {
+          const SaveUser = response.data.user;
+          console.log("SaveUser", SaveUser);
+          sessionStorage.setItem("UserData", JSON.stringify(SaveUser));
           Swal.fire({
             title: "Good job!",
-            text: "Category has been successfully added!",
+            text: "Log in successfully!",
             icon: "success",
           });
-          navi("/HomePage")
+          navi("/HomePage");
+        } else {
+          Swal.fire({
+            title: "Oops!",
+            text: "Something went wrong!",
+            icon: "error",
+          });
         }
-
-      } else {
+      } catch (error) {
         Swal.fire({
           title: "Oops!",
-          text: "Something went wrong!",
+          text: "An error occurred. Please try again later.",
           icon: "error",
         });
       }
-    } catch (error) {
-      Swal.fire({
-        title: "Oops!",
-        text: "An error occurred. Please try again later.",
-        icon: "error",
-      });
-    }
+    },
+  });
+
+  const handleSignup = () => {
+    navi("/Signup");
   };
-  const handlePassword = (e) => {
-    navi2('/ForgotPassword')
-  }
-  const Signbut = () => {
-    navi('/Signup')
+
+  const handlePassword = () => {
+    navi("/ForgotPassword");
+  };
+  const handleGoogleSignIn = async () =>{
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      console.log(user);
+      const createapi=await axios.post(`${apiUrl}/api/createuser`,{
+        user_name:user.displayName,
+        email:user.email,
+        phone_number:user.email
+      })
+      const userincreate=createapi.data.savedUser || createapi.data.existingUser;
+      sessionStorage.setItem('UserData', JSON.stringify(userincreate));
+      navi('/HomePage')
+    } catch (error) {
+      console.error('Error during sign-in:', error.message);
+      alert('Google Sign-In failed. Please try again.')
+    }
   }
 
   return (
-    <Container fluid className="bodyyy">
-      <Row
-        style={{
-          height: '20vh',
-          paddingLeft: "15vw",
-          fontWeight: "2000px",
-          paddingTop: "3.8vw",
-        }}
-      >
-        <Col style={{ fontFamily: "sans-serif" }} xs={6} lg={4}>
-          <button className="pollingbooth"> POLLING BOOTH </button>
+    <div className="LoginBody" style={{ height: "85vh" }}>
+      <Container style={{ height: "100vh"}}>
+        <Row style={{height:"10vh"}}>
 
-        </Col>
-        <Col xs={2} lg={5}></Col>
-        <Col xs={4} lg={3}>
-          <Button onClick={Signbut} style={{ padding: "5%" }}> Sign up</Button>
-        </Col>
-      </Row>
-      <Row style={{ height: "60vh" }}>
-        <Col lg={3} xs={12}></Col>
-        <Col lg={6} xs={12}>
-          <Card className='Loginpageeee'>
-            <h1 className="Login">LOGIN</h1>
-            <div></div>
-            {!addof &&
-              <>
-                <Form.Label className="">Mobile No:
-                </Form.Label>
-                <FormControl
-                  name="phone_number"
-                  type="text"
-                  value={details.phone_number}
-                  placeholder="Enter Your Mob no"
-                  onChange={handleChange}
-                />
-                <p style={{ color: "red" }} className='p1'>{validph}</p>
-                <br />
-                <Form.Label className="formpassword">Password:</Form.Label>
-                <FormControl
-                  name="password"
-                  type="password"
-                  value={details.password}
-                  placeholder="Enter your Password"
-                  onChange={handleChange}
-                />
-                <p style={{ color: "red" }} className='p1'>{validpas}</p>
-                <br />
-                <Button className="submit" onClick={handleSubmit}>Login</Button>
-                <br />
-                <br />
-                <button className="forgotpassword" onClick={handlePassword}>Forgot Password?</button>
-              </>}
+        </Row>
+        <Row>
+          <Col xs={12} md={1} xl={1} lg={1} style={{}}></Col>
+          <Col xs={12} md={5} xl={5} lg={5} style={{marginTop:'30px'}}>
+            <img src={pollimage} style={{ height: "100%", width: "100%" }}></img>
+          </Col>
+          {/* <Col xs={12} md={1} xl={1} lg={1}></Col> */}
+          <Col xs={12} md={5} xl={5} lg={5} style={{marginTop:"9vh"}}>
+            <Card className="cardcolor" style={{paddingLeft:'20px'}}>
+              <h1 style={{ color: "white" }}>LOGIN</h1>
+              <h6 style={{paddingTop: "20px" }}>
+                Phone no:
+              </h6>
+              <FormControl
+                className="inputpassword"
+                name="phone_number"
+                type="text"
+                value={formik.values.phone_number}
+                placeholder="Enter Your Mob no"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                required={10}
+                minLength={10}
+                maxLength={10}
+              />
+              {formik.touched.phone_number && formik.errors.phone_number ? (
+                <div style={{ color: "red" }} className="error-message">
+                  {formik.errors.phone_number}
+                </div>
+              ) : null}
 
-
-          </Card>
-        </Col>
-        <Col lg={3} xs={12}></Col>
-      </Row>
-      <Row style={{ height: "20vh" }}></Row>
-    </Container>
-  )
-
+              <br />
+              <h6 style={{ }}>Password:</h6>
+              <FormControl
+                className="inputpassword"
+                name="password"
+                type="password"
+                value={formik.values.password}
+                placeholder="Enter your Password"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                required={6}
+                minLength={6}
+                maxLength={6}
+              />
+              {formik.touched.password && formik.errors.password && (
+                <div style={{ color: "red" }} className="error-message">
+                  {formik.errors.password}
+                </div>
+              )}
+              <br />
+              <div className="d-flex allign-items-center justify-content-center" >
+              <Button className="login-button" onClick={formik.handleSubmit}>
+                Login
+              </Button>
+              </div>
+              
+              
+              <br />
+              <div className="d-flex allign-items-center justify-content-center">
+              <img src={google} alt='gpic' className='gpic' onClick={handleGoogleSignIn} ></img>
+              </div>
+             
+              <br />
+              <button className="forgotpassword" onClick={handlePassword}>
+                Forgot Password?
+              </button>
+            </Card>
+          </Col>
+          <Col xs={12} md={1} xl={1} lg={1} className='last_column_in_auth'>
+          <div className="d-flex allign-item-center justify-content-center">
+          <Button
+            className="signin-button"
+              onClick={handleSignup}
+              
+            >
+              Sign up
+            </Button>
+          </div>
+            
+          </Col>
+        </Row>
+      </Container>
+    </div>
+  );
 };
 
 export default LoginPage;

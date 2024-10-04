@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Card, Container, Offcanvas, Button } from 'react-bootstrap';
 import "bootstrap-icons/font/bootstrap-icons.css";
+import apiUrl from "./api";
 import { useNavigate } from 'react-router-dom';
 
 const Top3polls = () => {
@@ -17,7 +18,7 @@ const Top3polls = () => {
 
   useEffect(() => {
     const fetchtop = async () => {
-      const store = await axios.get('http://localhost:5000/polls/top3');
+      const store = await axios.get(`${apiUrl}/polls/top3`);
       if (store.data) {
         setDetailtop(store.data);
       }
@@ -37,24 +38,32 @@ const Top3polls = () => {
     };
     getUser();
   }, []);
-  const showonepoll=async(id)=>{
-    try{
+  const showonepoll = async (xx) => {
+    try {
+      console.log("Data being passed:", xx); // Log to check the data
+      navtoone('/HomePage', { state: { xx } }); // Pass xx to HomePage
+    } catch (error) {
+      console.log("Error navigating:", error);
+    }
+  };
+  // const showonepoll=async(xx)=>{
+  //   try{
   
-      console.log("enterincard")
-      const onepoll=await axios.post('http://localhost:5000/polls/getone',{
-              poll_id:id,
-              user_id:currentUser
-      })
+  //     // console.log("enterincard")
+  //     // const onepoll=await axios.post(`${apiUrl}/polls/getone`,{
+  //     //         poll_id:id,
+  //     //         user_id:currentUser
+  //     // })
       
-        let xx=onepoll?.data;
-         setGetonepoll(xx);
-         console.log(xx);
-      navtoone('/HomePage',{state:{xx}});
-    }
-    catch(e){
+       
+  //       //  setGetonepoll(xx);
+  //        console.log(xx);
+  //     navtoone('/HomePage',{state:{xx}});
+  //   }
+  //   catch(e){
   
-    }
-   }
+  //   }
+  //  }
 
   return (
     <>
@@ -63,17 +72,17 @@ const Top3polls = () => {
       <div className="d-none d-md-block">
         <Container 
           className="my-4"
-          style={{ position: 'fixed', width: '20%', height: '100%', top: '0', right: '0', paddingTop: '30px' }}>
+          style={{ position: 'fixed', width: '20%', height: '100%', top:'8%', right: '0', paddingTop: '30px' }}>
           <h3 className='Trendpollstyle'>Trending Polls</h3>
           {detailtop.map((item) => (
-            <Card key={item._id} className="mb-3" style={{width:'100%'}} onClick={()=>showonepoll(item._id)}>
+            <Card key={item._id} className="mb-3 cardintrend" style={{width:'100%'}} onClick={()=>showonepoll(item)}>
               <Card.Body>
-                <Card.Title>{item.question}</Card.Title>
+                <span>{item.question}</span>
                 <Card.Text >
-                  <strong>Total Votes:</strong> {item.totalVotes}
+                  <span>Total Votes:</span> {item.totalVotes}
                 </Card.Text>
                 <Card.Text>
-                  <strong>Total Likes:</strong> {item.totalLikes}
+                  <span>Total Likes:</span> {item.totalLikes}
                 </Card.Text>
               </Card.Body>
             </Card>
